@@ -5,12 +5,16 @@ const stepEl = document.querySelector('[name="step"]');
 const amountEl = document.querySelector('[name="amount"]');
 const submitBtn = document.querySelector('button');
 
-function onButtonClick(e) {
+function onPromiseCreate(e) {
   e.preventDefault();
-  const promisesNum = amountEl.value;
-  for (let i = 1; i <= promisesNum; i++) {
-    let delayE = +delayEl.value + stepEl.value * i;
-    createPromise(i, delayE)
+
+  let valueDelay = Number(delayEl.value);
+  let step = Number(stepEl.value);
+  let amount = Number(amountEl.value);
+
+  for (let i = 1; i <= amount; i += 1) {
+    let promiseDelay = valueDelay + step * i;
+    createPromise(i, promiseDelay)
       .then(({ position, delay }) => {
         Notiflix.Notify.success(
           `✅ Fulfilled promise ${position} in ${delay}ms`
@@ -37,4 +41,4 @@ function createPromise(position, delay) {
   });
 }
 
-submitBtn.addEventListener('click', onButtonClick);
+submitBtn.addEventListener('click', onPromiseCreate);
